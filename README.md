@@ -25,7 +25,10 @@ $ git clone https://github.com/javiereguiluz/dx.git
 $ cd dx/
 $ composer install
 
-$ php app/console issues:look-for
+$ php app/console doctrine:database:create
+$ php app/console doctrine:schema:create
+
+$ php app/console issues:find
 
 $ php app/console server:run
 ```
