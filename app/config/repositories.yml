@@ -1,0 +1,36 @@
+# These are the repositories where the application looks for DX issues.
+# For now we only track Symfony main repos and the top 30 Symfony bundles.
+
+repositories:
+    - symfony/symfony
+    - symfony/symfony-docs
+    - FriendsOfSymfony/FOSUserBundle
+    - FriendsOfSymfony/FOSRestBundle
+    - KnpLabs/KnpMenuBundle
+    - stof/StofDoctrineExtensionsBundle
+    - schmittjoh/JMSSerializerBundle
+    - sonata-project/SonataAdminBundle
+    - FriendsOfSymfony/FOSJsRoutingBundle
+    - liip/LiipImagineBundle
+    - KnpLabs/KnpPaginatorBundle
+    - nelmio/NelmioApiDocBundle
+    - FriendsOfSymfony/FOSElasticaBundle
+    - hwi/HWIOAuthBundle
+    - dustin10/VichUploaderBundle
+    - raulfraile/LadybugBundle
+    - KnpLabs/KnpSnappyBundle
+    - doctrine/DoctrineFixturesBundle
+    - whiteoctober/WhiteOctoberPagerfantaBundle
+    - doctrine/DoctrineMigrationsBundle
+    - phiamo/MopaBootstrapBundle
+    - schmittjoh/JMSSecurityExtraBundle
+    - doctrine/DoctrineBundle
+    - avalanche123/AvalancheImagineBundle
+    - schmittjoh/JMSDiExtraBundle
+    - genemu/GenemuFormBundle
+    - KnpLabs/KnpGaufretteBundle
+    - snc/SncRedisBundle
+    - lexik/LexikFormFilterBundle
+    - schmittjoh/JMSI18nRoutingBundle
+    - liuggio/ExcelBundle
+    - schmittjoh/JMSTranslationBundle
