@@ -81,10 +81,10 @@ class IssueFinderCommand extends ContainerAwareCommand
             if (null === $issue) {
                 $issue = new Issue(array(
                     'githubId'   => $result['id'],
-                    'title'      => $result['title'],
+                    'title'      => $this->cleanIssueTitle($result['title']),
                     'body'       => $result['body'],
                     'url'        => $result['html_url'],
-                    'repository' => 'symfony/symfony',
+                    'repository' => $this->getIssueRepository($result['url']),
                     'author'     => $result['user']['login'],
                     'status'     => $this->getIssueStatus($result),
                     'createdAt'  => new \DateTime($result['created_at']),
@@ -93,7 +93,7 @@ class IssueFinderCommand extends ContainerAwareCommand
 
             } else {
                 $issue
-                    ->setTitle($result['title'])
+                    ->setTitle($this->cleanIssueTitle($result['title']))
                     ->setBody($result['body'])
                     ->setStatus($this->getIssueStatus($result))
                     ->setComments($result['comments'])
@@ -102,6 +102,20 @@ class IssueFinderCommand extends ContainerAwareCommand
 
             $em->persist($issue);
         }
+    }
+
+    private function cleanIssueTitle($title)
+    {
+        // if the title starts with '[DX]' strip it for being redundant
+        return preg_replace('/\[DX\] (.*)/i', '$1', $title);
+    }
+
+    private function getIssueRepository($repositoryAbsoluteUrl)
+    {
+        $matches = array();
+        preg_match('~https://api.github.com/repos/(?<repository>.*)/issues/\d+~', $repositoryAbsoluteUrl, $matches);
+
+        return $matches['repository'];
     }
 
     private function getIssueStatus(array $issue)
