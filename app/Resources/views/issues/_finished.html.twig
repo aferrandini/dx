@@ -1,0 +1,20 @@
+<p class="text-intro">
+    These DX issues are no longer active because they have been successfully completed or they have been rejected.
+</p>
+
+<div class="list-group">
+{% for issue in issues %}
+    <a href="{{ issue.url }}" class="list-group-item">
+        <h4 class="list-group-item-heading">
+            {{ issue.title }}
+        </h4>
+        <p class="list-group-item-text">
+            <span class="badge">
+                {{ issue.repository }}
+            </span>
+            opened by <strong>{{ issue.author }}</strong>
+            on <strong>{{ issue.createdAt|date('d M') }}</strong>
+        </p>
+    </a>
+{% endfor %}
+</div>
