@@ -67,14 +67,15 @@ class IssueFinderCommand extends ContainerAwareCommand
             )
         );
 
-        $issuesWithDxInTheTitle = $this->getGitHubClient()
-            ->api('issue')
-            ->all($vendor, $repository, array(
-                'q'      => 'DX',
-                'in'     => 'title',
-                'state'  => 'all',
-            )
-        );
+        $issuesWithDxInTheTitle = array();
+        // $issuesWithDxInTheTitle = $this->getGitHubClient()
+        //     ->api('issue')
+        //     ->all($vendor, $repository, array(
+        //         'q'      => 'DX',
+        //         'in'     => 'title',
+        //         'state'  => 'all',
+        //     )
+        // );
 
         return array_merge($issuesLabelledAsDx, $issuesWithDxInTheTitle);
     }
