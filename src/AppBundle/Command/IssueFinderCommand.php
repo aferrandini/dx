@@ -37,8 +37,6 @@ class IssueFinderCommand extends ContainerAwareCommand
             $results = $this->findIssues($repository);
             $this->saveIssues($em, $results);
         }
-
-        $em->flush();
     }
 
     private function getRepositoriesToScan()
@@ -61,13 +59,24 @@ class IssueFinderCommand extends ContainerAwareCommand
     {
         list($vendor, $repository) = explode('/', $repositoryUrl);
 
-        return $this->getGitHubClient()
+        $issuesLabelledAsDx = $this->getGitHubClient()
             ->api('issue')
             ->all($vendor, $repository, array(
                 'labels' => 'DX',
                 'state'  => 'all', // by default it only looks for 'open' issues
             )
         );
+
+        $issuesWithDxInTheTitle = $this->getGitHubClient()
+            ->api('issue')
+            ->all($vendor, $repository, array(
+                'q'      => 'DX',
+                'in'     => 'title',
+                'state'  => 'all',
+            )
+        );
+
+        return array_merge($issuesLabelledAsDx, $issuesWithDxInTheTitle);
     }
 
     private function saveIssues(EntityManager $em, $results)
@@ -102,6 +111,8 @@ class IssueFinderCommand extends ContainerAwareCommand
 
             $em->persist($issue);
         }
+
+        $em->flush();
     }
 
     private function cleanIssueTitle($title)
