@@ -10,14 +10,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 use AppBundle\Entity\Issue;
 
-class LookForIssuesCommand extends ContainerAwareCommand
+class IssueFinderCommand extends ContainerAwareCommand
 {
     private $rootDir;
 
     protected function configure()
     {
         $this
-            ->setName('issues:look-for')
+            ->setName('issues:find')
             ->setDescription('Looks for DX issues in the configured repos')
         ;
     }
@@ -65,7 +65,7 @@ class LookForIssuesCommand extends ContainerAwareCommand
             ->api('issue')
             ->all($vendor, $repository, array(
                 'labels' => 'DX',
-                'state' => 'all', // by default it only looks for 'open' issues
+                'state'  => 'all', // by default it only looks for 'open' issues
             )
         );
     }
