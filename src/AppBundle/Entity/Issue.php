@@ -27,6 +27,13 @@ class Issue
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="github_id", type="integer", nullable=true)
+     */
+    private $githubId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -105,6 +112,29 @@ class Issue
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set Github identifier
+     *
+     * @param integer $githubId
+     * @return Issue
+     */
+    public function setGithubId ($githubId)
+    {
+        $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    /**
+     * Get Github identifier
+     *
+     * @return integer
+     */
+    public function getGithubId ()
+    {
+        return $this->githubId;
     }
 
     /**

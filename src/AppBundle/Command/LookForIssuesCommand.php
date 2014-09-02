@@ -73,12 +73,14 @@ class LookForIssuesCommand extends ContainerAwareCommand
     private function saveIssues(EntityManager $em, $results)
     {
         foreach ($results as $result) {
-            $entity = $em->getRepository('AppBundle:Issue')->findOneBy(array(
-                'title' => $result['title']
+            /** @var Issue $issue */
+            $issue = $em->getRepository('AppBundle:Issue')->findOneBy(array(
+                'githubId' => $result['id']
             ));
 
-            if (null === $entity) {
+            if (null === $issue) {
                 $issue = new Issue(array(
+                    'githubId'   => $result['id'],
                     'title'      => $result['title'],
                     'body'       => $result['body'],
                     'url'        => $result['html_url'],
@@ -88,8 +90,15 @@ class LookForIssuesCommand extends ContainerAwareCommand
                     'createdAt'  => new \DateTime($result['created_at']),
                 ));
 
-                $em->persist($issue);
+            } else {
+                $issue
+                    ->setTitle($result['title'])
+                    ->setBody($result['body'])
+                    ->setStatus($this->getIssueStatus($result))
+                ;
             }
+
+            $em->persist($issue);
         }
     }
 
