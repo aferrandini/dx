@@ -27,6 +27,13 @@ class Issue
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="github_id", type="integer", nullable=true)
+     */
+    private $githubId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -89,6 +96,11 @@ class Issue
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(name="comments", type="integer", nullable=true)
+     */
+    private $comments = 0;
+
 
     public function __construct(array $params = array())
     {
@@ -105,6 +117,29 @@ class Issue
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set Github identifier
+     *
+     * @param integer $githubId
+     * @return Issue
+     */
+    public function setGithubId ($githubId)
+    {
+        $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    /**
+     * Get Github identifier
+     *
+     * @return integer
+     */
+    public function getGithubId ()
+    {
+        return $this->githubId;
     }
 
     /**
@@ -312,5 +347,28 @@ class Issue
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set number of comments
+     *
+     * @param integer $comments
+     * @return Issue
+     */
+    public function setComments ($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get number of comments
+     *
+     * @return integer
+     */
+    public function getComments ()
+    {
+        return $this->comments;
     }
 }
