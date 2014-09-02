@@ -95,7 +95,7 @@ class IssueFinderCommand extends ContainerAwareCommand
                     'url'        => $result['html_url'],
                     'repository' => $this->getIssueRepository($result['url']),
                     'author'     => $result['user']['login'],
-                    'status'     => $this->getIssueStatus($result),
+                    'status'     => $this->getStatusForNewIssue($result),
                     'createdAt'  => new \DateTime($result['created_at']),
                     'comments'   => $result['comments'] ? $result['comments'] : 0,
                 ));
@@ -104,7 +104,7 @@ class IssueFinderCommand extends ContainerAwareCommand
                 $issue
                     ->setTitle($this->cleanIssueTitle($result['title']))
                     ->setBody($result['body'])
-                    ->setStatus($this->getIssueStatus($result))
+                    ->setStatus($this->getStatusForExistingIssue($issue, $result))
                     ->setComments($result['comments'])
                 ;
             }
@@ -129,7 +129,14 @@ class IssueFinderCommand extends ContainerAwareCommand
         return $matches['repository'];
     }
 
-    private function getIssueStatus(array $issue)
+    /**
+     * The logic for setting the status of new issues is as follows:
+     *
+     *   - If GitHub status is closed -> status = finished
+     *   - If GitHub status is not closed and the issue has comments -> status = discussing
+     *   - Otherwise -> status = new
+     */
+    private function getStatusForNewIssue(array $issue)
     {
         if ('closed' === $issue['state']) {
             return Issue::STATUS_FINISHED;
@@ -140,5 +147,27 @@ class IssueFinderCommand extends ContainerAwareCommand
         }
 
         return Issue::STATUS_NEW;
+    }
+
+    /**
+     * Changing the status for existing issues is mostly done by hand by
+     * application managers. That's why the logic for setting the status
+     * of existing issues is as follows:
+     *
+     * - If the updated issue status = closed -> change existing issue status to finished
+     * - If the updated issue has comments and the existing issue status = new -> change existing issue status to discussing
+     * - Otherwise, don't change the existing issue status
+     */
+    private function getStatusForExistingIssue(array $existingIssueData, array $updatedIssueData)
+    {
+        if ('closed' === $updatedIssueData['state']) {
+            return Issue::STATUS_FINISHED;
+        }
+
+        if (Issue::STATUS_NEW == $existingIssueData['status'] && count($updatedIssueData['comments']) > 0) {
+            return Issue::STATUS_DISCUSSING;
+        }
+
+        return $existingIssueData['status'];
     }
 }
