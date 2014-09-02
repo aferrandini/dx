@@ -14,6 +14,10 @@
             </span>
             opened by <strong>{{ issue.author }}</strong>
             on <strong>{{ issue.createdAt|date('d M') }}</strong>
+
+            <span class="badge">
+                {{ issue.comments }}
+            </span> comments
         </p>
     </a>
 {% endfor %}

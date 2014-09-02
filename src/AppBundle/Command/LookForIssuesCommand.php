@@ -88,6 +88,7 @@ class LookForIssuesCommand extends ContainerAwareCommand
                     'author'     => $result['user']['login'],
                     'status'     => $this->getIssueStatus($result),
                     'createdAt'  => new \DateTime($result['created_at']),
+                    'comments'   => $result['comments'] ? $result['comments'] : 0,
                 ));
 
             } else {
@@ -95,6 +96,7 @@ class LookForIssuesCommand extends ContainerAwareCommand
                     ->setTitle($result['title'])
                     ->setBody($result['body'])
                     ->setStatus($this->getIssueStatus($result))
+                    ->setComments($result['comments'])
                 ;
             }
 

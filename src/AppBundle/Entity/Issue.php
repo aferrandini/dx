@@ -96,6 +96,11 @@ class Issue
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(name="comments", type="integer", nullable=true)
+     */
+    private $comments = 0;
+
 
     public function __construct(array $params = array())
     {
@@ -342,5 +347,28 @@ class Issue
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set number of comments
+     *
+     * @param integer $comments
+     * @return Issue
+     */
+    public function setComments ($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get number of comments
+     *
+     * @return integer
+     */
+    public function getComments ()
+    {
+        return $this->comments;
     }
 }
