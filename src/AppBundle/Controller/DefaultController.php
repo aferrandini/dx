@@ -16,10 +16,10 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $issues = $this->getDoctrine()->getManager()->getRepository('AppBundle:Issue');
-        $new = $issues->findByStatus(Issue::STATUS_NEW);
-        $discussing = $issues->findByStatus(Issue::STATUS_DISCUSSING);
-        $wip = $issues->findByStatus(Issue::STATUS_WIP);
-        $finished = $issues->findByStatus(Issue::STATUS_FINISHED);
+        $new = $issues->findByStatus(Issue::STATUS_NEW, array('createdAt' => 'DESC'));
+        $discussing = $issues->findByStatus(Issue::STATUS_DISCUSSING, array('createdAt' => 'DESC'));
+        $wip = $issues->findByStatus(Issue::STATUS_WIP, array('createdAt' => 'DESC'));
+        $finished = $issues->findByStatus(Issue::STATUS_FINISHED, array('createdAt' => 'DESC'));
 
         return $this->render("index.html.twig", array(
             'new'        => $new,
