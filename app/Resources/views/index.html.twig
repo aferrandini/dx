@@ -8,7 +8,7 @@
 
     <div class="tabbable">
         <ul class="nav nav-tabs">
-            <li class="active">
+            <li>
                 <a href="#new" data-toggle="tab">
                     <span class="badge" style="background: #ee1111">
                         {{ new|length }}
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="arrow">&rarr;</li>
-            <li>
+            <li class="active">
                 <a href="#discussing" data-toggle="tab">
                     <span class="badge" style="background: #e3a21a">
                         {{ discussing|length }}
@@ -46,11 +46,11 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="new">
+            <div class="tab-pane" id="new">
                 {{ include('issues/_new.html.twig', { issues: new }) }}
             </div>
 
-            <div class="tab-pane" id="discussing">
+            <div class="tab-pane active" id="discussing">
                 {{ include('issues/_discussing.html.twig', { issues: discussing }) }}
             </div>
 

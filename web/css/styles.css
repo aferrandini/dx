@@ -12,6 +12,10 @@ h1 small {
     margin-top: 2em;
 }
 
+.tabbable li a {
+    color: #222;
+    font-weight: 500;
+}
 .tabbable li .badge {
     color: #FFF;
     margin-right: .2em;
@@ -34,9 +38,20 @@ h1 small {
 .list-group {
     margin-top: 2em;
 }
+
 .list-group .list-group-item {
     border: none;
     margin-bottom: 1em;
+}
+.list-group .list-group-item:hover {
+    background: #F5F5F5;
+}
+
+.list-group .list-group-item a {
+    text-decoration: none;
+}
+.list-group .list-group-item a:hover {
+    text-decoration: none;
 }
 .list-group .list-group-item-heading {
     font-size: 18px;
@@ -51,4 +66,42 @@ h1 small {
 .list-group .list-group-item-text .badge {
     background: #F5F5F5;
     color: #999;
+}
+.list-group .list-group-item form p.title {
+    font-size: 12px;
+    margin-bottom: 0;
+    text-align: right;
+}
+
+
+#discussing .list-group .list-group-item form {
+    display: none;
+}
+#discussing .list-group .list-group-item:hover form {
+    display: block;
+}
+
+
+#wip .list-group .list-group-item .issue-assigned-to small,
+#wip .list-group .list-group-item .issue-has-pr small {
+    color: #AAA;
+    display: block;
+    font-size: 12px;
+}
+#wip .list-group .list-group-item .issue-assigned-to p,
+#wip .list-group .list-group-item .issue-has-pr p {
+    font-size: 18px;
+}
+#wip .list-group .list-group-item .issue-has-pr p span.no {
+    color: #C00;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: .7;
+}
+#wip .list-group .list-group-item .issue-add-pr,
+#wip .list-group .list-group-item:hover .issue {
+    display: none;
+}
+#wip .list-group .list-group-item:hover .issue-add-pr {
+    display: block;
 }

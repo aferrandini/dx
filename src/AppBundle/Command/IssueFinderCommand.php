@@ -68,6 +68,13 @@ class IssueFinderCommand extends ContainerAwareCommand
         );
 
         $issuesWithDxInTheTitle = array();
+        // I don't know how to do the following query using the
+        // PHP GitHub provided by KnpLabs:
+        //
+        // https://api.github.com/search/issues?q=DX+in:title+type:issue+user:symfony+repo:symfony&sort=created&order=asc
+        //
+        // The following doesn't work:
+        //
         // $issuesWithDxInTheTitle = $this->getGitHubClient()
         //     ->api('issue')
         //     ->all($vendor, $repository, array(

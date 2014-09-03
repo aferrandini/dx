@@ -4,21 +4,25 @@
 
 <div class="list-group">
 {% for issue in issues %}
-    <a href="{{ issue.url }}" class="list-group-item">
-        <h4 class="list-group-item-heading">
-            {{ issue.title }}
-        </h4>
-        <p class="list-group-item-text">
-            <span class="badge">
-                {{ issue.repository }}
-            </span>
-            opened by <strong>{{ issue.author }}</strong>
-            on <strong>{{ issue.createdAt|date('d M') }}</strong>
+    <div class="row list-group-item">
+        <div class="col-sm-12 issue">
+            <a href="{{ issue.url }}">
+                <h4 class="list-group-item-heading">
+                    {{ issue.title }}
+                </h4>
+                <p class="list-group-item-text">
+                    <span class="badge">
+                        {{ issue.repository }}
+                    </span>
+                    opened by <strong>{{ issue.author }}</strong>
+                    on <strong>{{ issue.createdAt|date('d M') }}</strong>
 
-            <span class="badge">
-                {{ issue.comments }}
-            </span> comments
-        </p>
-    </a>
+                    <span class="badge">
+                        {{ issue.comments }}
+                    </span> comments
+                </p>
+            </a>
+        </div>
+    </div>
 {% endfor %}
 </div>
