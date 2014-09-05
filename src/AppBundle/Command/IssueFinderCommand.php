@@ -166,16 +166,16 @@ class IssueFinderCommand extends ContainerAwareCommand
      * - If the updated issue has comments and the existing issue status = new -> change existing issue status to discussing
      * - Otherwise, don't change the existing issue status
      */
-    private function getStatusForExistingIssue(array $existingIssueData, array $updatedIssueData)
+    private function getStatusForExistingIssue(Issue $existingIssueData, array $updatedIssueData)
     {
         if ('closed' === $updatedIssueData['state']) {
             return Issue::STATUS_FINISHED;
         }
 
-        if (Issue::STATUS_NEW == $existingIssueData['status'] && count($updatedIssueData['comments']) > 0) {
+        if (Issue::STATUS_NEW == $existingIssueData->getStatus() && count($updatedIssueData['comments']) > 0) {
             return Issue::STATUS_DISCUSSING;
         }
 
-        return $existingIssueData['status'];
+        return $existingIssueData->getStatus();
     }
 }
