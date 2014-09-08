@@ -12,4 +12,38 @@ use Doctrine\ORM\EntityRepository;
  */
 class IssueRepository extends EntityRepository
 {
+    /**
+     * Find issues by status and filter term.
+     *
+     * @param string $status
+     * @param string $term
+     * @param array  $orderBy
+     *
+     * @return array
+     */
+    public function findByStatusAndTerm ($status, $term = '', $orderBy = array())
+    {
+        $query = $this->createQueryBuilder('i');
+
+        $query
+            ->where($query->expr()->eq('i.status', ':status'))
+            ->setParameter('status', $status)
+        ;
+
+        if (!empty($term)) {
+            $query
+                ->andWhere($query->expr()->orX(
+                    $query->expr()->like('i.title', ':term'),
+                    $query->expr()->like('i.repository', ':term')
+                ))
+                ->setParameter('term', strtr($term, array('*' => '%')))
+            ;
+        }
+
+        foreach ($orderBy as $field => $direction) {
+            $query->addOrderBy('i.' . $field, $direction);
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }
