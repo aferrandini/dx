@@ -14,18 +14,21 @@ class DefaultController extends Controller
     /**
      * @Route("/", name = "homepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $new = $this->getRepository()->findByStatus(Issue::STATUS_NEW, array('createdAt' => 'DESC'));
-        $discussing = $this->getRepository()->findByStatus(Issue::STATUS_DISCUSSING, array('createdAt' => 'DESC'));
-        $wip = $this->getRepository()->findByStatus(Issue::STATUS_WIP, array('createdAt' => 'DESC'));
-        $finished = $this->getRepository()->findByStatus(Issue::STATUS_FINISHED, array('createdAt' => 'DESC'));
+        $filter = $request->get('filter', '');
+
+        $new = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_NEW, $filter, array('createdAt' => 'DESC'));
+        $discussing = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_DISCUSSING, $filter, array('createdAt' => 'DESC'));
+        $wip = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_WIP, $filter, array('createdAt' => 'DESC'));
+        $finished = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_FINISHED, $filter, array('createdAt' => 'DESC'));
 
         return $this->render("index.html.twig", array(
             'new'        => $new,
             'discussing' => $discussing,
             'wip'        => $wip,
             'finished'   => $finished,
+            'filter'     => $filter
         ));
     }
 

@@ -6,6 +6,26 @@
         <small>Making Symfony exceptional one commit at a time</small>
     </h1>
 
+    <div class="row">
+        <div class="col-sm-12 issues-filter">
+            <form action="{{ path('homepage') }}" method="GET">
+                <div class="input-group col-sm-6">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" name="filter" class="form-control" value="{{ filter }}" placeholder="search by title or repository">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                        {% if filter %}
+                            <a href="{{ path('homepage') }}" class="btn btn-danger" title="Clear filters"><span class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </span>
+                </div>
+                <div>
+                    <small>Use the wildcard <kbd>*</kbd> to search in the title and the repository name.</small>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li>
