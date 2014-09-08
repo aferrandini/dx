@@ -4,8 +4,20 @@ body {
 
 h1 small {
     color: #AAA;
+    display: block;
     font-size: 50%;
+    padding-top: 6px;
     text-transform: lowercase;
+}
+
+.issues-filter {
+    margin-top: 1.7em;
+}
+.issues-filter .help-block {
+    color: #AAA;
+}
+.issues-filter .help-block kbd {
+    background: #AAA;
 }
 
 .tabbable {

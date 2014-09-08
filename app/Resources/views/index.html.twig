@@ -1,26 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>
-        Symfony DX Dashboard
-        <small>Making Symfony exceptional one commit at a time</small>
-    </h1>
-
     <div class="row">
-        <div class="col-sm-12 issues-filter">
+        <h1 class="col-sm-6">
+            Symfony DX Dashboard
+            <small>Making Symfony exceptional one commit at a time</small>
+        </h1>
+
+        <div class="col-sm-6 issues-filter">
             <form action="{{ path('homepage') }}" method="GET">
-                <div class="input-group col-sm-6">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <div class="input-group col-sm-12">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </span>
+
                     <input type="text" name="filter" class="form-control" value="{{ filter }}" placeholder="search by title or repository">
+
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="submit">Search</button>
                         {% if filter %}
-                            <a href="{{ path('homepage') }}" class="btn btn-danger" title="Clear filters"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="{{ path('homepage') }}" class="btn btn-danger" title="Clear filters">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
                         {% endif %}
                     </span>
                 </div>
-                <div>
-                    <small>Use the wildcard <kbd>*</kbd> to search in the title and the repository name.</small>
+                <div class="col-sm-12">
+                    <span class="help-block">
+                        Use the wildcard <kbd>*</kbd> to search in the title and the repository name.
+                    </span>
                 </div>
             </form>
         </div>
