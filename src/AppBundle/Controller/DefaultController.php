@@ -18,10 +18,10 @@ class DefaultController extends Controller
     {
         $filter = $request->get('filter', '');
 
-        $new = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_NEW, $filter, array('createdAt' => 'DESC'));
-        $discussing = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_DISCUSSING, $filter, array('createdAt' => 'DESC'));
-        $wip = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_WIP, $filter, array('createdAt' => 'DESC'));
-        $finished = $this->getRepository()->findByStatusAndTerm(Issue::STATUS_FINISHED, $filter, array('createdAt' => 'DESC'));
+        $new = $this->getRepository()->findNewIssues($filter);
+        $discussing = $this->getRepository()->findDiscussingIssues($filter);
+        $wip = $this->getRepository()->findWipIssues($filter);
+        $finished = $this->getRepository()->findFinishedIssues($filter);
 
         return $this->render("index.html.twig", array(
             'new'        => $new,

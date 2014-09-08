@@ -12,6 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class IssueRepository extends EntityRepository
 {
+    public function findNewIssues($filter)
+    {
+        return $this->findByStatusAndTerm(Issue::STATUS_NEW, $filter, array('createdAt' => 'DESC'));
+    }
+
+    public function findDiscussingIssues($filter)
+    {
+        return $this->findByStatusAndTerm(Issue::STATUS_DISCUSSING, $filter, array('createdAt' => 'DESC'));
+    }
+
+    public function findWipIssues($filter)
+    {
+        return $this->findByStatusAndTerm(Issue::STATUS_WIP, $filter, array('createdAt' => 'DESC'));
+    }
+
+    public function findFinishedIssues($filter)
+    {
+        return $this->findByStatusAndTerm(Issue::STATUS_FINISHED, $filter, array('createdAt' => 'DESC'));
+    }
+
     /**
      * Find issues by status and filter term.
      *
@@ -21,7 +41,7 @@ class IssueRepository extends EntityRepository
      *
      * @return array
      */
-    public function findByStatusAndTerm ($status, $term = '', $orderBy = array())
+    public function findByStatusAndTerm($status, $term = '', $orderBy = array())
     {
         $query = $this->createQueryBuilder('i');
 
