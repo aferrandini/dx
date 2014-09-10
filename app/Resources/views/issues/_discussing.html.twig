@@ -4,7 +4,8 @@
 
 <div class="list-group">
 {% for issue in issues %}
-    <div class="row list-group-item">
+<div class="list-group-item">
+    <div class="row">
         <div class="col-sm-8">
             <a href="{{ issue.url }}">
                 <h4 class="list-group-item-heading">
@@ -25,20 +26,47 @@
         </div>
 
         <div class="col-sm-4 issue-assign-to">
-            <form action="{{ path('assign') }}" method="POST">
-                <input type="hidden" name="issue_id" value="{{ issue.id }}" />
+            <div class="hidden-content">
+                {# anonymous users #}
+                {% if not app.session.get('githubUsername') %}
 
-                <p class="col-sm-3 title">assign issue to</p>
+                    <a class="btn btn-primary btn-sl-connect" href="{{ url('sensiolabs_connect_new_session') }}?target=http://dx.dev/app_dev.php/session/callback">
+                        Login with SensioLabsConnect
+                    </a>
+                        to claim this issue
 
-                <div class="input-group col-sm-9">
-                    <span class="input-group-addon">@</span>
-                    <input type="text" name="assignee" class="form-control" placeholder="github username">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Assign</button>
-                    </span>
-                </div>
-            </form>
+                {# administrators #}
+                {% elseif app.user and app.session.get('githubUsername') in app_administrators %}
+
+                    <form action="{{ path('assign') }}" method="POST">
+                        <input type="hidden" name="issue_id" value="{{ issue.id }}" />
+
+                        <p class="col-sm-3 title">assign issue to</p>
+
+                        <div class="input-group col-sm-9">
+                            <span class="input-group-addon">@</span>
+                            <input type="text" name="assignee" class="form-control" placeholder="github username">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">Assign</button>
+                            </span>
+                        </div>
+                    </form>
+
+                {# logged users which are not administrators #}
+                {% elseif app.user and is_granted('ROLE_CONNECT_USER') %}
+
+                    <form action="{{ path('self_assign') }}" method="POST">
+                        <input type="hidden" name="issue_id" value="{{ issue.id }}" />
+
+                        <button class="btn btn-primary" type="submit">
+                            Self-asign this issue
+                        </button>
+                    </form>
+
+                {% endif %}
+            </div>
         </div>
     </div>
+</div>
 {% endfor %}
 </div>

@@ -2,6 +2,21 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
+sensio_labs_connect:
+    app_id:     %app_id%
+    app_secret: %app_secret%
+    scope:      %app_scope%
+
+twig:
+    globals:
+        app_administrators:
+            # the GitHub usernames of the admins
+            - fabpot
+            - weaverryan
+            - WouterJ
+            - xabbuh
+            - javiereguiluz
+
 framework:
     #esi:             ~
     #translator:      { fallback: "%locale%" }

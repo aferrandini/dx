@@ -4,7 +4,8 @@
 
 <div class="list-group">
 {% for issue in issues %}
-    <div class="row list-group-item">
+<div class="list-group-item">
+    <div class="row">
         <div class="col-sm-12 issue">
             <a href="{{ issue.url }}">
                 <h4 class="list-group-item-heading">
@@ -24,5 +25,6 @@
             </a>
         </div>
     </div>
+</div>
 {% endfor %}
 </div>

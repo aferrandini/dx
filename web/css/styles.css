@@ -86,10 +86,10 @@ h1 small {
 }
 
 
-#discussing .list-group .list-group-item form {
+#discussing .list-group .list-group-item .hidden-content {
     display: none;
 }
-#discussing .list-group .list-group-item:hover form {
+#discussing .list-group .list-group-item:hover .hidden-content {
     display: block;
 }
 
@@ -110,10 +110,10 @@ h1 small {
     font-weight: 500;
     line-height: .7;
 }
-#wip .list-group .list-group-item .issue-add-pr,
+#wip .list-group .list-group-item .hidden-content,
 #wip .list-group .list-group-item:hover .issue {
     display: none;
 }
-#wip .list-group .list-group-item:hover .issue-add-pr {
+#wip .list-group .list-group-item:hover .hidden-content {
     display: block;
 }

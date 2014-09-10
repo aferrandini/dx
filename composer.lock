@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d2e5de86fe1fc16329d27a69a82ed8a",
+    "hash": "a4b0c3beb19eb6fdfb152ee7a8b22b84",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -956,6 +956,54 @@
             "time": "2013-07-19 00:03:27"
         },
         {
+            "name": "kriswallsmith/buzz",
+            "version": "v0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "9d56d36a58c47e2f612f4b856ff9baa0e3375ff6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/9d56d36a58c47e2f612f4b856ff9baa0e3375ff6",
+                "reference": "9d56d36a58c47e2f612f4b856ff9baa0e3375ff6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Buzz": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2014-07-29 23:52:21"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.10.0",
             "source": {
@@ -1506,6 +1554,106 @@
                 "controllers"
             ],
             "time": "2014-09-02 07:11:30"
+        },
+        {
+            "name": "sensiolabs/connect",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/connect.git",
+                "reference": "d7eb5dab6f1938f747d9944b8bb3be476e43083b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/connect/zipball/d7eb5dab6f1938f747d9944b8bb3be476e43083b",
+                "reference": "d7eb5dab6f1938f747d9944b8bb3be476e43083b",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/buzz": "~0.8"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/form": "~2.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SensioLabs": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Weistroff",
+                    "email": "marc.weistroff@sensiolabs.com",
+                    "homepage": "http://sensiolabs.com"
+                }
+            ],
+            "description": "SensioLabs Connect SDK",
+            "homepage": "https://github.com/sensiolabs/connect",
+            "keywords": [
+                "SensioLabs Connect",
+                "sdk"
+            ],
+            "time": "2014-07-02 09:06:40"
+        },
+        {
+            "name": "sensiolabs/connect-bundle",
+            "version": "v2.0.0",
+            "target-dir": "SensioLabs/Bundle/ConnectBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioLabsConnectBundle.git",
+                "reference": "f5ba9591e7bd52c54404de2e06a1ce3b5f004d71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioLabsConnectBundle/zipball/f5ba9591e7bd52c54404de2e06a1ce3b5f004d71",
+                "reference": "f5ba9591e7bd52c54404de2e06a1ce3b5f004d71",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "sensiolabs/connect": "~2.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SensioLabs\\Bundle\\ConnectBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SensioLabs",
+                    "email": "contact@sensiolabs.com"
+                }
+            ],
+            "description": "Official bundle for the SensioLabs Connect SDK",
+            "homepage": "https://github.com/sensiolabs/SensioConnectBundle",
+            "keywords": [
+                "SensioLabs Connect"
+            ],
+            "time": "2013-12-26 15:30:42"
         },
         {
             "name": "sensiolabs/security-checker",

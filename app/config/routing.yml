@@ -2,3 +2,6 @@ app:
     resource: @AppBundle/Controller/
     type:     annotation
     prefix:   /
+
+_sensiolabs_connect:
+    resource: "@SensioLabsConnectBundle/Resources/config/routing.xml"
