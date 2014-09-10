@@ -56,7 +56,7 @@ class IssueRepository extends EntityRepository
                     $query->expr()->like('i.title', ':term'),
                     $query->expr()->like('i.repository', ':term')
                 ))
-                ->setParameter('term', '%'.$term.'%')
+                ->setParameter('term', strtr($term, array('*' => '%')))
             ;
         }
 
