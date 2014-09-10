@@ -4,7 +4,8 @@
 
 <div class="list-group">
 {% for issue in issues %}
-    <div class="row list-group-item">
+<div class=" list-group-item">
+    <div class="row">
         <div class="col-sm-9 issue">
             <a href="{{ issue.url }}">
                 <h4 class="list-group-item-heading">
@@ -24,24 +25,58 @@
             </a>
         </div>
 
-        <div class="col-sm-9 issue-add-pr">
-            <form action="{{ path('add_pr') }}" method="POST">
-                <input type="hidden" name="issue_id" value="{{ issue.id }}" />
+        <div class="col-sm-9 hidden-content issue-add-pr">
+
+            {# admin or issue assignee: show the form to edit the PR #}
+            {% if app.user
+                      and (
+                          (app.session.get('githubUsername') in app_administrators)
+                          or
+                          (app.session.get('githubUsername') == issue.assignedTo)
+                      ) %}
+
+                <form action="{{ path('add_pr') }}" method="POST">
+                    <input type="hidden" name="issue_id" value="{{ issue.id }}" />
+
+                    <p class="col-sm-2 title">
+                        {{ issue.pullRequest
+                            ? 'change related Pull Request'
+                            : 'add related Pull Request'
+                        }}
+                    </p>
+
+                    <div class="input-group col-sm-10">
+                        <input type="text" name="url" class="form-control" placeholder="http://github.com/[...]/[...]/pull/NNNNN" value="{{ issue.pullRequest }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </span>
+                    </div>
+                </form>
+
+            {# anonymous users or users which aren't assigned to the issue #}
+            {% else %}
 
                 <p class="col-sm-2 title">
-                    {{ issue.pullRequest
-                        ? 'change related Pull Request'
-                        : 'add related Pull Request'
-                    }}
+                    Associated PR
                 </p>
 
-                <div class="input-group col-sm-10">
-                    <input type="text" name="url" class="form-control" placeholder="http://github.com/[...]/[...]/pull/NNNNN" value="{{ issue.pullRequest }}">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Add</button>
-                    </span>
+                <div class="col-sm-10">
+                    <input type="text" disabled class="form-control" value="{{ issue.pullRequest|default('No PR has been assigned yet to this issue') }}">
                 </div>
-            </form>
+
+                {# anonimous user: show the PR and the login button #}
+                {% if not app.session.get('githubUsername') %}
+                    <a class="btn btn-primary btn-sl-connect" href="{{ url('sensiolabs_connect_new_session') }}?target=http://dx.dev/app_dev.php/session/callback">
+                        Login with SensioLabsConnect
+                    </a>
+                    {{ issue.pullRequest
+                        ? 'to change the Pull Request associated with this issue'
+                        : 'to associate a Pull Request with this issue'
+                    }}
+                {% endif %}
+
+            {% endif %}
+
         </div>
 
         <div class="col-sm-2 issue-assigned-to">
@@ -65,5 +100,6 @@
         </div>
 
     </div>
+</div>
 {% endfor %}
 </div>
