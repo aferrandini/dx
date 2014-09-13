@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 use AppBundle\Entity\Issue;
@@ -14,28 +15,52 @@ class IssueFinderCommand extends ContainerAwareCommand
 {
     private $rootDir;
 
+    /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
     protected function configure()
     {
         $this
             ->setName('issues:find')
             ->setDescription('Looks for DX issues in the configured repos')
+            ->addOption('all', 'a', InputOption::VALUE_NONE, 'Scan high and low priority repositories.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
+
         $this->rootDir = __DIR__.'/../../../';
         $repositories = $this->getRepositoriesToScan();
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $this->em = $this->getContainer()->get('doctrine')->getManager();
 
         $output->writeln("Looking for DX Issues");
         $output->writeln("=====================\n");
 
+        if (isset($repositories['high_priority']) && is_array($repositories['high_priority'])) {
+            $this->scanRepositories($repositories['high_priority']);
+        }
+
+        if ($input->getOption('all') && isset($repositories['high_priority']) && is_array($repositories['low_priority'])) {
+            $this->scanRepositories($repositories['low_priority']);
+        }
+    }
+
+    private function scanRepositories(array $repositories)
+    {
         foreach ($repositories as $repository) {
-            $output->writeln("> Scanning $repository");
+            $this->output->writeln("> Scanning $repository");
 
             $results = $this->findIssues($repository);
-            $this->saveIssues($em, $results);
+            $this->saveIssues($results);
         }
     }
 
@@ -87,11 +112,11 @@ class IssueFinderCommand extends ContainerAwareCommand
         return array_merge($issuesLabelledAsDx, $issuesWithDxInTheTitle);
     }
 
-    private function saveIssues(EntityManager $em, $results)
+    private function saveIssues($results)
     {
         foreach ($results as $result) {
             /** @var Issue $issue */
-            $issue = $em->getRepository('AppBundle:Issue')->findOneBy(array(
+            $issue = $this->em->getRepository('AppBundle:Issue')->findOneBy(array(
                 'githubId' => $result['id']
             ));
 
@@ -117,10 +142,10 @@ class IssueFinderCommand extends ContainerAwareCommand
                 ;
             }
 
-            $em->persist($issue);
+            $this->em->persist($issue);
         }
 
-        $em->flush();
+        $this->em->flush();
     }
 
     private function cleanIssueTitle($title)
