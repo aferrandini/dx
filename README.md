@@ -20,7 +20,7 @@ Installation
 
 ```bash
 $ cd projects/
-$ git clone https://github.com/javiereguiluz/dx.git
+$ git clone https://github.com/sensiolabs/dx.symfony.com.git
 
 $ cd dx/
 $ composer install
