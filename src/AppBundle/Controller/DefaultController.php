@@ -25,8 +25,6 @@ class DefaultController extends Controller
         $finished = $this->getRepository()->findFinishedIssues($filter);
 
         if (!$this->get('session')->has('githubUsername')) {
-            $loggedUser = $this->getUser();
-
             if ($loggedUser = $this->getUser()) {
                 $sensioLabsConnectUser = $this->get('sensiolabs_connect.api')->getRoot()->getUser($loggedUser->getUsername());
                 $this->get('session')->set('githubUsername', $sensioLabsConnectUser->get('githubUsername'));
