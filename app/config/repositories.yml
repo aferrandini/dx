@@ -21,12 +21,9 @@ repositories:
         - doctrine/DoctrineMongoDBBundle
         - doctrine/DoctrinePHPCRBundle
         - dustin10/VichUploaderBundle
-        - fabpot/Goutte
-        - fabpot/PHP-CS-Fixer
-        - fabpot/Pimple
-        - fabpot/Sami
-        - fabpot/twig
-        - fabpot/Twig-extensions
+        - FriendsOfPHP/Goutte
+        - FriendsOfPHP/PHP-CS-Fixer
+        - FriendsOfPHP/Sami
         - FriendsOfSymfony/FOSElasticaBundle
         - FriendsOfSymfony/FOSJsRoutingBundle
         - FriendsOfSymfony/FOSRestBundle
@@ -51,6 +48,7 @@ repositories:
         - sensiolabs/SensioDistributionBundle
         - sensiolabs/SensioFrameworkExtraBundle
         - sensiolabs/SensioGeneratorBundle
+        - silexphp/Pimple
         - silexphp/Silex
         - silexphp/Silex-Skeleton
         - silexphp/Silex-WebProfiler
@@ -77,4 +75,6 @@ repositories:
         - symfony/AsseticBundle
         - symfony/MonologBundle
         - symfony/SwiftmailerBundle
+        - twigphp/twig
+        - twigphp/Twig-extensions
         - whiteoctober/WhiteOctoberPagerfantaBundle
