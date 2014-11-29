@@ -3,6 +3,7 @@
 namespace AppBundle\Command;
 
 use Doctrine\ORM\EntityManager;
+use Github\Client;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -73,11 +74,29 @@ class IssueFinderCommand extends ContainerAwareCommand
 
     private function getGitHubClient()
     {
-        return new \Github\Client(
+        $client = new \Github\Client(
             new \Github\HttpClient\CachedHttpClient(array(
                 'cache_dir' => $this->rootDir.'/app/cache/github'
             ))
         );
+
+        $token = $this->getGithubToken();
+
+        // If there is a token use it to authenticate the Github requests and increase the limit
+        if (!empty($token)) {
+            $client->authenticate($token, null, Client::AUTH_HTTP_TOKEN);
+        }
+
+        return $client;
+    }
+
+    private function getGithubToken()
+    {
+        if ($this->getContainer()->hasParameter('github_token')) {
+            return $this->getContainer()->getParameter('github_token');
+        }
+
+        return null;
     }
 
     private function findIssues($repositoryUrl)

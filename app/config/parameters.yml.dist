@@ -10,3 +10,4 @@ parameters:
     database_password: ~
 
     secret:            ThisTokenIsNotSoSecretChangeIt
+    github_token:      ThisTokenShouldBeChangedByGithubPersonalToken
